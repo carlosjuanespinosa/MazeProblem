@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Provafunciona",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "8886139e-8f84-42a1-bc01-d430e271df9f",
                     "expectedControlType": "Button",
@@ -83,11 +83,11 @@
                 {
                     "name": "",
                     "id": "5eb25049-c792-480b-9fb9-bc8fcbef9ae1",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Provafunciona",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

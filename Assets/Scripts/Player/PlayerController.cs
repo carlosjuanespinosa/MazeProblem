@@ -5,13 +5,19 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private CharacterController cc;
+    [SerializeField] private Inventari inventari;
     public Vector2 moveDir;
     [SerializeField] private float moveVel;
+
+    [SerializeField] private GameObject objecteInteractuable;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
+        inventari = GetComponent<Inventari>();
 
         animator = GetComponentInChildren<Animator>();
 
@@ -25,16 +31,26 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        transform.position -= Physics.gravity;
+
+        //MoveRigidbody();
+        MoveCC();
 
         AnimatorBlendController();
     }
 
-    private void Move()
+    private void MoveRigidbody()
     {
         Vector3 _moveDir = transform.forward * moveDir.y + transform.right * moveDir.x;
 
         rb.velocity = _moveDir * moveVel * Time.fixedDeltaTime;
+    }
+
+    private void MoveCC()
+    {
+        Vector3 _moveDir = transform.forward * moveDir.y + transform.right * moveDir.x;
+
+        cc.Move(_moveDir*moveVel*Time.fixedDeltaTime);
     }
 
     private void AnimatorBlendController()
@@ -61,4 +77,17 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("MoveY", moveDir.y, .1f, Time.fixedDeltaTime);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Interactuable")) return;
+        objecteInteractuable = other.gameObject;
+    }
+
+    public void Interact()
+    {
+        GetComponent<Inventari>().Agafar(objecteInteractuable);
+    }
+
+
 }
