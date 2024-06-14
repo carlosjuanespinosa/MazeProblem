@@ -40,17 +40,5 @@ public class PlayerInputHandler : MonoBehaviour
         Vector2 moveDir=ctx.ReadValue<Vector2>();
 
         playerController.moveDir = moveDir;
-
-        if (ctx.ReadValue<Vector2>() == Vector2.zero)
-        {
-            animator.SetBool("Walk", false);
-            animator.SetFloat("MoveX", moveDir.x, .1f, Time.fixedDeltaTime);
-            animator.SetFloat("MoveY", moveDir.y, .1f, Time.fixedDeltaTime);
-        }
-        else {
-            animator.SetBool("Walk", true);
-            animator.SetFloat("MoveX", moveDir.x, .1f, Time.fixedDeltaTime);
-            animator.SetFloat("MoveY", moveDir.y, .1f, Time.fixedDeltaTime);
-        }
     }
 }
