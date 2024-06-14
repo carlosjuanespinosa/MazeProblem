@@ -1,0 +1,54 @@
+{
+    "name": "PlayerChooseItems",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "d9d6a4f9-e18f-47b3-95c2-e5181d282920",
+            "actions": [
+                {
+                    "name": "EscapeChooseItem",
+                    "type": "Button",
+                    "id": "71d0129c-e763-47ff-987a-dae15bace942",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChooseItem",
+                    "type": "Button",
+                    "id": "dc26717d-d9fe-463a-8133-64128a319656",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8d2c7fc1-081f-4177-a63e-f636e2b78d8d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChooseItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4d36e046-a96d-45c8-bc51-b89e926a5cf6",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EscapeChooseItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

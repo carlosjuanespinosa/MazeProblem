@@ -6,7 +6,11 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private CharacterController cc;
-    [SerializeField] private Inventari inventari;
+     public Inventari inventari;
+     public PlayerInputHandler inputActions;
+    public PlayerInputHandlerChooseItems playerInputHandlerChoose;
+    [SerializeField] public LookController lookController;
+    public ChoosenItem choosenItem;
     public Vector2 moveDir;
     [SerializeField] private float moveVel;
 
@@ -18,9 +22,16 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         cc = GetComponent<CharacterController>();
         inventari = GetComponent<Inventari>();
+        inputActions = GetComponent<PlayerInputHandler>();
+        playerInputHandlerChoose = GetComponent<PlayerInputHandlerChooseItems>();
+        lookController = GetComponent<LookController>();
+        choosenItem = GetComponent<ChoosenItem>();
 
         animator = GetComponentInChildren<Animator>();
-
+        inputActions.enabled = true;
+        playerInputHandlerChoose.enabled = false;
+        lookController.enabled = true;
+        choosenItem.enabled = false;
     }
 
     // Update is called once per frame
@@ -63,12 +74,12 @@ public class PlayerController : MonoBehaviour
         }
         else if (moveDir == new Vector2(.707107f, -.707107f))
         {
-            animator.SetFloat("MoveX", -1, .1f, Time.fixedDeltaTime);
+            animator.SetFloat("MoveX", 1, .1f, Time.fixedDeltaTime);
             animator.SetFloat("MoveY", moveDir.y, .1f, Time.fixedDeltaTime);
         }
         else if (moveDir == new Vector2(-.707107f, -.707107f))
         {
-            animator.SetFloat("MoveX",  1, .1f, Time.fixedDeltaTime);
+            animator.SetFloat("MoveX",  -1, .1f, Time.fixedDeltaTime);
             animator.SetFloat("MoveY", moveDir.y, .1f, Time.fixedDeltaTime);
         }
         else
@@ -78,7 +89,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Interactuable")) return;
         objecteInteractuable = other.gameObject;
@@ -86,7 +97,21 @@ public class PlayerController : MonoBehaviour
 
     public void Interact()
     {
-        GetComponent<Inventari>().Agafar(objecteInteractuable);
+        if (objecteInteractuable == null) return;
+        if (objecteInteractuable.TryGetComponent(out ObjecteFinal objecteFinal))
+        {
+            inventari.LlistarObjectes();
+            inventari.llista.SetActive(true);
+            choosenItem.objecteInteractuable = objecteFinal;
+            inputActions.enabled = false;
+            playerInputHandlerChoose.enabled = true;
+            lookController.enabled = false;
+            choosenItem.enabled = true;
+        }
+        else
+        {
+            GetComponent<Inventari>().Agafar(objecteInteractuable);
+        }
     }
 
 
