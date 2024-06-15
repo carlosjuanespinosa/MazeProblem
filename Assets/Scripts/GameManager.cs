@@ -33,9 +33,10 @@ public class GameManager : MonoBehaviour
         playerController.StartPlay();
     }
 
-    private void EndGame()
+    public void EndGame()
     {
-        contador.text = Time.time.ToString();
+        float timer = Mathf.Round(Time.time);
+        contador.text = timer.ToString();
         panelFinal.SetActive(true);
     }
 }

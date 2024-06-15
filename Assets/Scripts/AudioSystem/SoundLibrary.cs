@@ -22,21 +22,17 @@ public class SoundLibrary : ScriptableObject
 /// </summary>
 public enum SoundName
 {
-    SelectionPlayerMusic,
-    PlaySceneMusic,
-    CarEngine,
-    CarMetalImpact,
-    CarWallImpact,
-    CarOut,
-    Brakeing,
-    RocketOut,
-    RocketFlying,
-    RocketImpact,
-    Reactor,
-    PowerUpStay,
-    PowerUpGot,
-    MainMenuMusic,
-    Drift
+    VaterUse,
+    AscensorUse,
+    OpenDoor,
+    CloseDoor,
+    JumpScare1,
+    JumpScare2,
+    JumpScare3,
+    MusicaFondo1,
+    MusicaFondo2,
+    Steps,
+    WhiteNoise
 }
 
 [System.Serializable]

@@ -17,11 +17,20 @@ public class ObjecteFinal : MonoBehaviour
 
     [SerializeField] private ChoosenItem choosenItem;
 
+    private Interact interact;
+
     private void Start()
     {
         foreach (GameObject objecteCompletat in objectesCompletat)
         {
             objecteCompletat.SetActive(false);
+        }
+
+        if (TryGetComponent(out Interact _interact))
+        {
+            interact = _interact;
+
+            interact.enabled = false;
         }
     }
 
@@ -54,5 +63,7 @@ public class ObjecteFinal : MonoBehaviour
         {
             choosenItem.EscapeItemChoose();
         }
+        interact.enabled = true;
+        Destroy(this);
     }
 }

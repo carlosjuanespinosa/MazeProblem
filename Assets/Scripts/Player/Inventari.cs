@@ -57,6 +57,7 @@ public class Inventari : MonoBehaviour
         for (int i = 0; i < objectesInventari.Count; i++) {
             objectesInventari[i].transform.parent = llistaObjectes[i].transform;
             objectesInventari[i].transform.localPosition = Vector3.zero;
+            objectesInventari[i].transform.localScale = Vector3.one;
             objectesInventari[i].transform.rotation = llistaObjectes[i].transform.rotation;
             objectesInventari[i].gameObject.SetActive(true);
             objectesInventari[i].GetComponent<ObjectId>().ObjectIDLlista = i;

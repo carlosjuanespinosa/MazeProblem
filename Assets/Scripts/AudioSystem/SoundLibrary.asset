@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e26e5dba8e1f8e47b864196b6558eac, type: 3}
+  m_Name: SoundLibrary
+  m_EditorClassIdentifier: 
+  soundClips:
+  - soundName: 2
+    audioClip: {fileID: 8300000, guid: c34cb1a72cb447b4fae60caca78c9ac0, type: 3}
+    loop: 0
+    volume: 1
+    hasPlayTimer: 0
+    playTimer: 0
+    spacialBlend: 0
+    pitch: 0
+  - soundName: 4
+    audioClip: {fileID: 8300000, guid: 0619706bb1606554e98a3f5aaa24a811, type: 3}
+    loop: 0
+    volume: 1
+    hasPlayTimer: 0
+    playTimer: 0
+    spacialBlend: 0
+    pitch: 0
+  - soundName: 0
+    audioClip: {fileID: 8300000, guid: 7b59524382aa7894b97c6f70cf64f295, type: 3}
+    loop: 0
+    volume: 0
+    hasPlayTimer: 0
+    playTimer: 0
+    spacialBlend: 0
+    pitch: 0
+  - soundName: 1
+    audioClip: {fileID: 8300000, guid: b974d5bdd88fd954a813338680b9de53, type: 3}
+    loop: 0
+    volume: 1
+    hasPlayTimer: 0
+    playTimer: 0
+    spacialBlend: 0
+    pitch: 0
+  - soundName: 3
+    audioClip: {fileID: 8300000, guid: ae0b5a97dd54ac640bc35708f6e83516, type: 3}
+    loop: 0
+    volume: 1
+    hasPlayTimer: 0
+    playTimer: 0
+    spacialBlend: 0
+    pitch: 0
+  - soundName: 5
+    audioClip: {fileID: 8300000, guid: a6f0e27cceab17e40af09f7a35887330, type: 3}
+    loop: 0
+    volume: 1
+    hasPlayTimer: 0
+    playTimer: 0
+    spacialBlend: 0
+    pitch: 0
+  - soundName: 6
+    audioClip: {fileID: 8300000, guid: d807e76d94ff50745a9d8628a305f252, type: 3}
+    loop: 0
+    volume: 1
+    hasPlayTimer: 0
+    playTimer: 0
+    spacialBlend: 0
+    pitch: 0
+  - soundName: 0
+    audioClip: {fileID: 8300000, guid: f460bbac3537269488094ce4454fce73, type: 3}
+    loop: 0
+    volume: 1
+    hasPlayTimer: 0
+    playTimer: 0
+    spacialBlend: 0
+    pitch: 0

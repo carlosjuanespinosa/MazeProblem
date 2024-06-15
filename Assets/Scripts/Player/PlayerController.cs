@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] public GameObject lastInteractableObject;
 
+    private GameManager gm;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gm = FindAnyObjectByType<GameManager>();
     }
 
     // Update is called once per frame
@@ -132,6 +135,14 @@ public class PlayerController : MonoBehaviour
             {
                 cursor.texture = forzadura.textureNormal;
             }
+            else if (raycastHit.transform.TryGetComponent(out Final final))
+            {
+                cursor.texture = final.texture;
+            }
+            else if (raycastHit.transform.TryGetComponent(out Interact interact))
+            {
+                cursor.texture = interact.textureNormal;
+            }
             else
             {
                 cursor.texture = textureNormal;
@@ -151,6 +162,7 @@ public class PlayerController : MonoBehaviour
         {
             if (raycastHit.transform.TryGetComponent(out ObjecteFinal interactableObject))
             {
+                Debug.Log("objectefinal");
                 inventari.LlistarObjectes();
                 inventari.llista.SetActive(true);
                 choosenItem.objecteInteractuable = interactableObject.transform;
@@ -175,6 +187,12 @@ public class PlayerController : MonoBehaviour
                 cameraInventari.SetActive(true);
                 cursor.gameObject.SetActive(false);
                 Cursor.lockState = CursorLockMode.Confined;
+            }else if (raycastHit.transform.TryGetComponent(out Final final))
+            {
+                gm.EndGame();
+            }else if (raycastHit.transform.TryGetComponent(out Interact interact))
+            {
+                interact.TriarInteraccio();
             }
             else
             {
