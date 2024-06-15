@@ -18,6 +18,7 @@ public class Forzadura : MonoBehaviour
     [SerializeField] private ChoosenItem choosenItem;
 
     [SerializeField] private Animator animator;
+    [SerializeField] private AudioManager auM;
 
     private void Start()
     {
@@ -25,6 +26,8 @@ public class Forzadura : MonoBehaviour
         {
             objecteCompletat.SetActive(false);
         }
+
+        auM = FindAnyObjectByType<AudioManager>();
     }
 
     public bool ComprovarItem(GameObject _itemTriat)
@@ -54,8 +57,11 @@ public class Forzadura : MonoBehaviour
         //objectesCompletat.RemoveAt(objecteId);
         if (objects.Count <= 0)
         {
+            auM.PlaySound(SoundName.OpenDoor);
             animator.SetTrigger("Obrir");
             choosenItem.EscapeItemChoose();
+            Destroy(GetComponent<BoxCollider>());
+            Destroy(this);
         }
     }
 }

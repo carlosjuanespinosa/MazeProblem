@@ -17,7 +17,7 @@ public class ObjecteFinal : MonoBehaviour
 
     [SerializeField] private ChoosenItem choosenItem;
 
-    private Interact interact;
+    [SerializeField] private Interact interact;
 
     private void Start()
     {
@@ -26,7 +26,7 @@ public class ObjecteFinal : MonoBehaviour
             objecteCompletat.SetActive(false);
         }
 
-        if (TryGetComponent(out Interact _interact))
+        if (interact == null && TryGetComponent(out Interact _interact))
         {
             interact = _interact;
 

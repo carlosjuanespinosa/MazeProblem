@@ -25,6 +25,11 @@ public class AscensorScript : MonoBehaviour
         float fractionOfJourney = distCovered / journeyLength;
         transform.position = Vector3.Lerp(transform.position, playerLookPosition.position, fractionOfJourney);
     }
+
+    public void StartCoroutine()
+    {
+        StartCoroutine(CoroutineAnimation());
+    }
     
     IEnumerator CoroutineAnimation()
     {

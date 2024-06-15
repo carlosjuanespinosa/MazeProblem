@@ -19,6 +19,7 @@ public class Interact : MonoBehaviour
     public Texture textureNormal;
 
     [SerializeField] private Animator animator;
+    [SerializeField] private AscensorScript ascensorScript;
     private void Start()
     {
         audioManager = FindAnyObjectByType<AudioManager>();
@@ -48,7 +49,7 @@ public class Interact : MonoBehaviour
     {
         if (audioManager != null) audioManager.PlaySound(SoundName.AscensorUse);
 
-        if (animator != null) animator.SetTrigger("Obrir");
+        ascensorScript.StartCoroutine();
 
         if (teObjecte) objecte.SetActive(true);
     }
