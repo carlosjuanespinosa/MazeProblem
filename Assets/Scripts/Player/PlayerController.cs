@@ -127,6 +127,10 @@ public class PlayerController : MonoBehaviour
             {
                 cursor.texture = objecteFinal.textureNormal;
             }
+            else if (raycastHit.transform.TryGetComponent(out Forzadura forzadura))
+            {
+                cursor.texture = forzadura.textureNormal;
+            }
             else
             {
                 cursor.texture = textureNormal;
@@ -148,7 +152,20 @@ public class PlayerController : MonoBehaviour
             {
                 inventari.LlistarObjectes();
                 inventari.llista.SetActive(true);
-                choosenItem.objecteInteractuable = interactableObject;
+                choosenItem.objecteInteractuable = interactableObject.transform;
+                inputActions.enabled = false;
+                playerInputHandlerChoose.enabled = true;
+                lookController.enabled = false;
+                choosenItem.enabled = true;
+                cameraPersonatge.SetActive(false);
+                cameraInventari.SetActive(true);
+                cursor.gameObject.SetActive(false);
+                Cursor.lockState = CursorLockMode.Confined;
+            }else if (raycastHit.transform.TryGetComponent(out Forzadura forzadura))
+            {
+                inventari.LlistarObjectes();
+                inventari.llista.SetActive(true);
+                choosenItem.objecteInteractuable = forzadura.transform;
                 inputActions.enabled = false;
                 playerInputHandlerChoose.enabled = true;
                 lookController.enabled = false;

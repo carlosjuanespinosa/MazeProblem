@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class ChoosenItem : MonoBehaviour
 {
-    [SerializeField] public ObjecteFinal objecteInteractuable;
+    [SerializeField] public Transform objecteInteractuable;
 
     private PlayerController playerController;
 
@@ -22,12 +22,25 @@ public class ChoosenItem : MonoBehaviour
         {
             if (hit.transform.CompareTag("Interactuable"))
             {
-                if (objecteInteractuable.ComprovarItem(hit.transform.gameObject))
+                if (objecteInteractuable.TryGetComponent(out ObjecteFinal objecteFinal))
                 {
-                    playerController.inventari.objectesInventari.RemoveAt(hit.transform.GetComponent<ObjectId>().ObjectIDLlista);
-                    objecteInteractuable.CompletarObjecte();
-                    Destroy(hit.transform.gameObject);
-                    playerController.inventari.LlistarObjectes();
+                    if (objecteFinal.ComprovarItem(hit.transform.gameObject))
+                    {
+                        playerController.inventari.objectesInventari.RemoveAt(hit.transform.GetComponent<ObjectId>().ObjectIDLlista);
+                        objecteFinal.CompletarObjecte();
+                        Destroy(hit.transform.gameObject);
+                        playerController.inventari.LlistarObjectes();
+                    }
+                }
+                if (objecteInteractuable.TryGetComponent(out Forzadura forzadura))
+                {
+                    if (forzadura.ComprovarItem(hit.transform.gameObject))
+                    {
+                        playerController.inventari.objectesInventari.RemoveAt(hit.transform.GetComponent<ObjectId>().ObjectIDLlista);
+                        forzadura.CompletarObjecte();
+                        Destroy(hit.transform.gameObject);
+                        playerController.inventari.LlistarObjectes();
+                    }
                 }
             }
         }
