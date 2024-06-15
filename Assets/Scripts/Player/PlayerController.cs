@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public ChoosenItem choosenItem;
     public Vector2 moveDir;
     [SerializeField] private float moveVel;
+    [SerializeField] private bool canMove;
 
     [SerializeField] private GameObject objecteInteractuable;
 
@@ -38,17 +39,16 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
 
-        inputActions.enabled = true;
-        playerInputHandlerChoose.enabled = false;
-        lookController.enabled = true;
-        choosenItem.enabled = false;
-
         cameraPersonatge.SetActive(true);
         cameraInventari.SetActive(false);
 
         cursor.texture = textureNormal;
 
-        Cursor.lockState = CursorLockMode.Locked;
+        inputActions.enabled = false;
+        playerInputHandlerChoose.enabled = true;
+        lookController.enabled = false;
+        choosenItem.enabled = false;
+        canMove = false;
     }
 
     // Start is called before the first frame update
@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private void MoveRigidbody()
     {
+        if (!canMove) return;
         Vector3 movement = transform.forward * moveDir.y + transform.right * moveDir.x;
         movement *= moveVel;
         rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
@@ -180,5 +181,14 @@ public class PlayerController : MonoBehaviour
                 GetComponent<Inventari>().Agafar(raycastHit.transform.gameObject);
             }
         }
+    }
+
+    public void StartPlay()
+    {
+        inputActions.enabled = true;
+        playerInputHandlerChoose.enabled = false;
+        lookController.enabled = true;
+        choosenItem.enabled = false;
+        canMove = true;
     }
 }

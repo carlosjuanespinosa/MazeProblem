@@ -26,7 +26,7 @@ public class PlayerInputHandler : MonoBehaviour
 
         playerInputActions.Player.Move.performed += MoveCTX;
         playerInputActions.Player.Move.canceled += MoveCTX;
-        playerInputActions.Player.Interact.started += Interact;
+        playerInputActions.Player.Interact.performed += Interact;
     }
 
     private void OnDisable()

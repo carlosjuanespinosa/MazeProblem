@@ -44,6 +44,15 @@ public partial class @PlayerChooseItems: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StartGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""630f1c45-00f8-432e-96ff-284798014533"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @PlayerChooseItems: IInputActionCollection2, IDisposable
                     ""action"": ""EscapeChooseItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f7dbbedf-ba57-4188-b3a1-182b360d79d1"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @PlayerChooseItems: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_EscapeChooseItem = m_Player.FindAction("EscapeChooseItem", throwIfNotFound: true);
         m_Player_ChooseItem = m_Player.FindAction("ChooseItem", throwIfNotFound: true);
+        m_Player_StartGame = m_Player.FindAction("StartGame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,12 +162,14 @@ public partial class @PlayerChooseItems: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_EscapeChooseItem;
     private readonly InputAction m_Player_ChooseItem;
+    private readonly InputAction m_Player_StartGame;
     public struct PlayerActions
     {
         private @PlayerChooseItems m_Wrapper;
         public PlayerActions(@PlayerChooseItems wrapper) { m_Wrapper = wrapper; }
         public InputAction @EscapeChooseItem => m_Wrapper.m_Player_EscapeChooseItem;
         public InputAction @ChooseItem => m_Wrapper.m_Player_ChooseItem;
+        public InputAction @StartGame => m_Wrapper.m_Player_StartGame;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -162,6 +185,9 @@ public partial class @PlayerChooseItems: IInputActionCollection2, IDisposable
             @ChooseItem.started += instance.OnChooseItem;
             @ChooseItem.performed += instance.OnChooseItem;
             @ChooseItem.canceled += instance.OnChooseItem;
+            @StartGame.started += instance.OnStartGame;
+            @StartGame.performed += instance.OnStartGame;
+            @StartGame.canceled += instance.OnStartGame;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -172,6 +198,9 @@ public partial class @PlayerChooseItems: IInputActionCollection2, IDisposable
             @ChooseItem.started -= instance.OnChooseItem;
             @ChooseItem.performed -= instance.OnChooseItem;
             @ChooseItem.canceled -= instance.OnChooseItem;
+            @StartGame.started -= instance.OnStartGame;
+            @StartGame.performed -= instance.OnStartGame;
+            @StartGame.canceled -= instance.OnStartGame;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -193,5 +222,6 @@ public partial class @PlayerChooseItems: IInputActionCollection2, IDisposable
     {
         void OnEscapeChooseItem(InputAction.CallbackContext context);
         void OnChooseItem(InputAction.CallbackContext context);
+        void OnStartGame(InputAction.CallbackContext context);
     }
 }

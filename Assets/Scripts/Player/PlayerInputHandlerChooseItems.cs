@@ -9,11 +9,13 @@ public class PlayerInputHandlerChooseItems : MonoBehaviour
     private PlayerChooseItems playerChooseItems;
 
     private ChoosenItem choosenItem;
+    private GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
         choosenItem = GetComponent<ChoosenItem>();
+        gm = FindAnyObjectByType<GameManager>();
     }
 
     private void OnEnable()
@@ -24,6 +26,7 @@ public class PlayerInputHandlerChooseItems : MonoBehaviour
 
         playerChooseItems.Player.EscapeChooseItem.performed += EscapeChooseItem;
         playerChooseItems.Player.ChooseItem.performed += ChooseItem;
+        playerChooseItems.Player.StartGame.performed += StartGame;
     }
 
     private void ChooseItem(InputAction.CallbackContext ctx)
@@ -34,7 +37,6 @@ public class PlayerInputHandlerChooseItems : MonoBehaviour
             if (choosenItem.enabled)
             {
                     choosenItem.TriarItem();
-
             }
         }
     }
@@ -43,5 +45,10 @@ public class PlayerInputHandlerChooseItems : MonoBehaviour
     {
         //Debug.Log("Escape Choosen items");
         if (choosenItem.enabled) { choosenItem.EscapeItemChoose(); }
+    }
+
+    private void StartGame(InputAction.CallbackContext ctx)
+    {
+        gm.StartGame();
     }
 }
