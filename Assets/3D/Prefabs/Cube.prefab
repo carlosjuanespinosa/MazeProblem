@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 484772569347927647}
   - component: {fileID: 431151990111169709}
   - component: {fileID: 5251326699793818972}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Interactuable
   m_Icon: {fileID: 0}
@@ -147,3 +147,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectIDLlista: 0
+  textureNormal: {fileID: 2800000, guid: d43aa281fa4a68f48a824e307047293e, type: 3}

@@ -42,5 +42,7 @@ public class ChoosenItem : MonoBehaviour
         playerController.choosenItem.enabled = false;
         playerController.cameraPersonatge.SetActive(true);
         playerController.cameraInventari.SetActive(false);
+        playerController.cursor.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

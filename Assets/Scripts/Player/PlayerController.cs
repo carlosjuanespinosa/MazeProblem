@@ -1,9 +1,11 @@
+using UnityEditor.Overlays;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-
-    private Animator animator;
+        private Animator animator;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private CharacterController cc;
      public Inventari inventari;
@@ -18,6 +20,11 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] public GameObject cameraPersonatge;
     [SerializeField] public GameObject cameraInventari;
+
+    [SerializeField] public RawImage cursor;
+    [SerializeField] private Texture textureNormal;
+
+    [SerializeField] public GameObject lastInteractableObject;
 
     private void Awake()
     {
@@ -38,6 +45,10 @@ public class PlayerController : MonoBehaviour
 
         cameraPersonatge.SetActive(true);
         cameraInventari.SetActive(false);
+
+        cursor.texture = textureNormal;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Start is called before the first frame update
@@ -53,19 +64,21 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position -= Physics.gravity;
+        //    transform.position -= Physics.gravity;
 
-        //MoveRigidbody();
-        MoveCC();
+        MoveRigidbody();
+        //MoveCC();
 
         AnimatorBlendController();
+
+        ShowKeyToInteract();
     }
 
     private void MoveRigidbody()
     {
-        Vector3 _moveDir = transform.forward * moveDir.y + transform.right * moveDir.x;
-
-        rb.velocity = _moveDir * moveVel * Time.fixedDeltaTime;
+        Vector3 movement = transform.forward * moveDir.y + transform.right * moveDir.x;
+        movement *= moveVel;
+        rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
     }
 
     private void MoveCC()
@@ -100,32 +113,55 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void ShowKeyToInteract()
     {
-        if (!other.CompareTag("Interactuable")) return;
-        objecteInteractuable = other.gameObject;
+        int maskInt = LayerMask.GetMask("Interactuable");
+        Ray cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 1f));
+        if (Physics.Raycast(cameraRay, out RaycastHit raycastHit, 5f, maskInt))
+        {
+            if (raycastHit.transform.TryGetComponent(out ObjectId objectId))
+            {
+                cursor.texture = objectId.textureNormal;
+            }
+            else if (raycastHit.transform.TryGetComponent(out ObjecteFinal objecteFinal))
+            {
+                cursor.texture = objecteFinal.textureNormal;
+            }
+            else
+            {
+                cursor.texture = textureNormal;
+            }
+        }
+        else
+        {
+            cursor.texture = textureNormal;
+        }
     }
 
     public void Interact()
     {
-        if (objecteInteractuable == null) return;
-        if (objecteInteractuable.TryGetComponent(out ObjecteFinal objecteFinal))
+        int maskInt = LayerMask.GetMask("Interactuable");
+        Ray cameraRay = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 1f));
+        if (Physics.Raycast(cameraRay, out RaycastHit raycastHit, 3f, maskInt))
         {
-            inventari.LlistarObjectes();
-            inventari.llista.SetActive(true);
-            choosenItem.objecteInteractuable = objecteFinal;
-            inputActions.enabled = false;
-            playerInputHandlerChoose.enabled = true;
-            lookController.enabled = false;
-            choosenItem.enabled = true; 
-            cameraPersonatge.SetActive(false);
-            cameraInventari.SetActive(true);
-        }
-        else
-        {
-            GetComponent<Inventari>().Agafar(objecteInteractuable);
+            if (raycastHit.transform.TryGetComponent(out ObjecteFinal interactableObject))
+            {
+                inventari.LlistarObjectes();
+                inventari.llista.SetActive(true);
+                choosenItem.objecteInteractuable = interactableObject;
+                inputActions.enabled = false;
+                playerInputHandlerChoose.enabled = true;
+                lookController.enabled = false;
+                choosenItem.enabled = true;
+                cameraPersonatge.SetActive(false);
+                cameraInventari.SetActive(true);
+                cursor.gameObject.SetActive(false);
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+            else
+            {
+                GetComponent<Inventari>().Agafar(raycastHit.transform.gameObject);
+            }
         }
     }
-
-
 }

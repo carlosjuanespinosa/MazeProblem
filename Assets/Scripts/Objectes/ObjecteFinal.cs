@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjecteFinal : MonoBehaviour
@@ -11,6 +12,10 @@ public class ObjecteFinal : MonoBehaviour
     private int objecteTriatContador;
 
     private int objecteId;
+
+    public Texture textureNormal;
+
+    [SerializeField] private ChoosenItem choosenItem;
 
     private void Start()
     {
@@ -45,5 +50,9 @@ public class ObjecteFinal : MonoBehaviour
         objectesCompletat[objecteId].SetActive(true);
         objects.RemoveAt(objecteId);
         objectesCompletat.RemoveAt(objecteId);
+        if (objects.Count <= 0)
+        {
+            choosenItem.EscapeItemChoose();
+        }
     }
 }
