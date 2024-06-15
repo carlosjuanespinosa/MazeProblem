@@ -16,8 +16,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject objecteInteractuable;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] public GameObject cameraPersonatge;
+    [SerializeField] public GameObject cameraInventari;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         cc = GetComponent<CharacterController>();
@@ -28,10 +30,19 @@ public class PlayerController : MonoBehaviour
         choosenItem = GetComponent<ChoosenItem>();
 
         animator = GetComponentInChildren<Animator>();
+
         inputActions.enabled = true;
         playerInputHandlerChoose.enabled = false;
         lookController.enabled = true;
         choosenItem.enabled = false;
+
+        cameraPersonatge.SetActive(true);
+        cameraInventari.SetActive(false);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     // Update is called once per frame
@@ -106,7 +117,9 @@ public class PlayerController : MonoBehaviour
             inputActions.enabled = false;
             playerInputHandlerChoose.enabled = true;
             lookController.enabled = false;
-            choosenItem.enabled = true;
+            choosenItem.enabled = true; 
+            cameraPersonatge.SetActive(false);
+            cameraInventari.SetActive(true);
         }
         else
         {

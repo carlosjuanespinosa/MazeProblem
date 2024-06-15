@@ -22,10 +22,11 @@ public class ChoosenItem : MonoBehaviour
         {
             if (hit.transform.CompareTag("Interactuable"))
             {
-                Debug.Log(hit.transform.name);
                 if (objecteInteractuable.ComprovarItem(hit.transform.gameObject))
                 {
                     playerController.inventari.objectesInventari.RemoveAt(hit.transform.GetComponent<ObjectId>().ObjectIDLlista);
+                    objecteInteractuable.CompletarObjecte();
+                    Destroy(hit.transform.gameObject);
                     playerController.inventari.LlistarObjectes();
                 }
             }
@@ -39,5 +40,7 @@ public class ChoosenItem : MonoBehaviour
         playerController.playerInputHandlerChoose.enabled = false;
         playerController.lookController.enabled = true;
         playerController.choosenItem.enabled = false;
+        playerController.cameraPersonatge.SetActive(true);
+        playerController.cameraInventari.SetActive(false);
     }
 }

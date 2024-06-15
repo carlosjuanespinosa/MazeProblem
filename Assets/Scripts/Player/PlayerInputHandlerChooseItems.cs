@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,13 +28,20 @@ public class PlayerInputHandlerChooseItems : MonoBehaviour
 
     private void ChooseItem(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Choosen items");
-        if (choosenItem.enabled) { choosenItem.TriarItem(); }
+        //Debug.Log("Choosen items");
+        if (choosenItem != null)
+        {
+            if (choosenItem.enabled)
+            {
+                    choosenItem.TriarItem();
+
+            }
+        }
     }
 
     private void EscapeChooseItem(InputAction.CallbackContext ctx)
     {
-        Debug.Log("Escape Choosen items");
+        //Debug.Log("Escape Choosen items");
         if (choosenItem.enabled) { choosenItem.EscapeItemChoose(); }
     }
 }
